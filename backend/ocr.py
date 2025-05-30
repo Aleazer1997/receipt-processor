@@ -36,8 +36,7 @@ def extract_receipt_details(pdf_path: str) -> dict:
     for img in images:
         text += pytesseract.image_to_string(img)
 
-    lines = text.splitlines()
-    merchant_name = lines[0].strip() if lines else "Unknown Merchant"
+    merchant_name = extract_merchant_name(text)
 
     # Extract total amount (simple pattern for $ or ₹)
     amounts = re.findall(r'[\$]?\s*([\d,]+\.\d{2})', text)
